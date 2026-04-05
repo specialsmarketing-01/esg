@@ -7,9 +7,9 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-sans);
-  --font-mono: var(--font-geist-mono);
-  --font-heading: var(--font-sans);
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --font-heading: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -49,38 +49,43 @@
 }
 
 :root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
+  --background: #f7f9f8;
+  --foreground: #0f172a;
+  --card: #ffffff;
+  --card-foreground: #0f172a;
+  --popover: #ffffff;
+  --popover-foreground: #0f172a;
+  --primary: #1f7a63;
+  --primary-foreground: #ffffff;
+  --secondary: #e8f4f0;
+  --secondary-foreground: #145544;
+  --muted: #ecf1ef;
+  --muted-foreground: #64748b;
+  --accent: #d8eee8;
+  --accent-foreground: #145544;
   --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --radius: 0.625rem;
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  --border: #e3eae7;
+  --input: #dfe8e4;
+  --ring: rgb(31 122 99 / 0.35);
+  --chart-1: #1f7a63;
+  --chart-2: #4ade9b;
+  --chart-3: #0f5132;
+  --chart-4: #94a3b8;
+  --chart-5: #cbd5e1;
+  --radius: 0.75rem;
+  --sidebar: #fafcfb;
+  --sidebar-foreground: #0f172a;
+  --sidebar-primary: #1f7a63;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #e8f4f0;
+  --sidebar-accent-foreground: #145544;
+  --sidebar-border: #e3eae7;
+  --sidebar-ring: rgb(31 122 99 / 0.35);
+}
+
+.dark body {
+  background-image: none;
+  background-attachment: scroll;
 }
 
 .dark {
@@ -117,12 +122,85 @@
   --sidebar-ring: oklch(0.556 0 0);
 }
 
+@utility shadow-soft {
+  box-shadow:
+    0 1px 2px rgb(15 23 42 / 0.04),
+    0 8px 24px -6px rgb(15 23 42 / 0.08);
+}
+
+@utility shadow-soft-lg {
+  box-shadow:
+    0 4px 6px rgb(15 23 42 / 0.04),
+    0 16px 40px -10px rgb(15 23 42 / 0.1);
+}
+
+@keyframes processing-glow {
+  0%,
+  100% {
+    opacity: 0.45;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.85;
+    transform: scale(1.04);
+  }
+}
+
+@keyframes processing-shimmer {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.processing-ambient {
+  animation: processing-shimmer 14s linear infinite;
+}
+
+.processing-glow-pulse {
+  animation: processing-glow 3s ease-in-out infinite;
+}
+
+@keyframes skeleton-shimmer {
+  100% {
+    transform: translateX(200%);
+  }
+}
+
+@utility shadow-premium {
+  box-shadow:
+    0 1px 2px rgb(15 23 42 / 0.04),
+    0 12px 32px -8px rgb(31 122 99 / 0.08),
+    0 4px 16px -4px rgb(15 23 42 / 0.06);
+}
+
+@utility shadow-premium-hover {
+  box-shadow:
+    0 4px 8px rgb(15 23 42 / 0.05),
+    0 20px 44px -12px rgb(31 122 99 / 0.12),
+    0 8px 24px -6px rgb(15 23 42 / 0.08);
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
   body {
     @apply bg-background text-foreground;
+    background-image:
+      radial-gradient(
+        ellipse 120% 90% at 50% -35%,
+        rgb(31 122 99 / 0.07),
+        transparent 55%
+      ),
+      radial-gradient(
+        ellipse 70% 50% at 100% 0%,
+        rgb(232 244 240 / 0.85),
+        transparent 45%
+      );
+    background-attachment: fixed;
   }
   html {
     @apply font-sans;
