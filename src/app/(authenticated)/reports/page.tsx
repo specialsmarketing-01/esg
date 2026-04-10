@@ -1,6 +1,9 @@
+import Link from "next/link";
 export default function ReportsPage() {
   const demoReports = [
     {
+
+      
       id: 1,
       company: "GreenVolt Energy GmbH",
       industry: "Green Energy",
@@ -83,6 +86,23 @@ export default function ReportsPage() {
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-background via-background to-secondary/20">
+      <header className="sticky top-0 z-20 border-b bg-background/80 backdrop-blur">
+  <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
+    <div className="flex items-center gap-2">
+      <img src="/logo.png" alt="logo" className="h-8 w-8 rounded-md" />
+      <span className="text-lg font-semibold tracking-tight">
+        ESG<span className="text-primary">simplify</span>
+      </span>
+    </div>
+
+    <Link
+      href="/dashboard"
+      className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow-sm transition-all hover:opacity-90"
+    >
+      ESGsimplify Dashboard
+    </Link>
+  </div>
+</header>
       <div className="mx-auto w-full max-w-7xl space-y-8 px-6 py-8 md:px-8 lg:px-10">
         {/* Page Header */}
         <section className="rounded-3xl border border-border/60 bg-background/80 p-6 shadow-sm backdrop-blur md:p-8">
