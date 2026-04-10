@@ -11,8 +11,8 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: {
-    default: "ESGsimplified — ESG reports for Austrian SMEs",
-    template: "%s · ESGsimplified",
+    default: "ESGsimplify — ESG reports for Austrian SMEs",
+    template: "%s · ESGsimplify",
   },
   description:
     "Generate ESG reports with AI. Built for Austrian SMEs — onboarding, upload, and dashboard preview (demo).",
