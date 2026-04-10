@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 
 const nav = [
   { label: "How it works", href: "/#how" },
-  { label: "Why ESGsimplified", href: "/#why" },
+  { label: "Why ESGsimplify", href: "/#why" },
   { label: "Get started", href: "/#cta" },
 ] as const;
 
