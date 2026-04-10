@@ -1,4 +1,3 @@
-```tsx
 import Link from "next/link";
 
 export default function ReportsPage() {
@@ -118,4 +117,4 @@ export default function ReportsPage() {
     </main>
   );
 }
-```
+
