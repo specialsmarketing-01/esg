@@ -1,6 +1,5 @@
 import Link from "next/link";
-import { Leaf } from "lucide-react";
-
+import Image from "next/image";
 import { cn } from "@/lib/utils";
 
 type LogoProps = {
@@ -33,8 +32,15 @@ export function Logo({
             iconClassName
           )}
         >
-          <Leaf className="size-4" strokeWidth={2.25} aria-hidden />
+          {/* YOUR CUSTOM ICON */}
+          <Image
+            src="/logo.png"
+            alt="ESGsimplify Logo"
+            width={20}
+            height={20}
+          />
         </span>
+
         {showWordmark && (
           <span className="text-base sm:text-lg">
             ESG<span className="text-primary">simplify</span>
