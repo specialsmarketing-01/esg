@@ -36,8 +36,8 @@ export function Logo({
           <Image
             src="/logo2.png"
             alt="ESGsimplify Logo"
-            width={20}
-            height={20}
+            width={40}
+            height={40}
           />
         </span>
 
