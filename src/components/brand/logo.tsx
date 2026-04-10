@@ -34,7 +34,7 @@ export function Logo({
         >
           {/* YOUR CUSTOM ICON */}
           <Image
-            src="/logo.png"
+            src="/logo2.png"
             alt="ESGsimplify Logo"
             width={20}
             height={20}
