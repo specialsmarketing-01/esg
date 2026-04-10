@@ -16,8 +16,11 @@ export const metadata: Metadata = {
   },
   description:
     "Generate ESG reports with AI. Built for Austrian SMEs — onboarding, upload, and dashboard preview (demo).",
-};
 
+  icons: {
+    icon: "/favicon.png",
+  },
+};
 export default function RootLayout({
   children,
 }: Readonly<{
