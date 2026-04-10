@@ -18,8 +18,8 @@ export type SidebarNavItem = {
 export const dashboardSidebarItems: readonly SidebarNavItem[] = [
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { href: "/upload", label: "Documents", icon: FolderOpen },
-  { href: "#", label: "Reports", icon: FileText },
-  { href: "#", label: "Settings", icon: Settings },
+  { href: "/reports", label: "Reports", icon: FileText },
+  { href: "/settings", label: "Settings", icon: Settings },
 ];
 
 type SidebarProps = {
