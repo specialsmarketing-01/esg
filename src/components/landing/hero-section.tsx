@@ -39,7 +39,7 @@ export function HeroSection() {
             </Lead>
             <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row sm:justify-start sm:gap-4">
               <Link
-                href={hrefLoginNext("/upload")}
+                href="/onboarding"
                 className={cn(
                   buttonVariants({ size: "lg" }),
                   "min-w-[11rem] px-8 shadow-premium motion-safe:transition-transform motion-safe:duration-300 motion-safe:hover:-translate-y-0.5 motion-safe:hover:shadow-premium-hover"
