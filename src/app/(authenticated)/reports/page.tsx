@@ -1,4 +1,26 @@
+import Link from "next/link";
 export default function ReportsPage() {
+  {/* Header */}
+<header className="sticky top-0 z-20 border-b bg-background/80 backdrop-blur">
+  <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
+    
+    {/* Left side (Logo + Name) */}
+    <div className="flex items-center gap-2">
+      <img src="/logo.png" alt="logo" className="h-8 w-8 rounded-md" />
+      <span className="text-lg font-semibold tracking-tight">
+        ESG<span className="text-primary">simplify</span>
+      </span>
+    </div>
+
+    {/* Right side (Button) */}
+    <Link
+      href="/dashboard"
+      className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow-sm transition-all hover:opacity-90"
+    >
+      ESGsimplify Dashboard
+    </Link>
+  </div>
+</header>
   const demoReports = [
     {
       id: 1,
