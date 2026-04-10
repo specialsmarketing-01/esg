@@ -37,7 +37,7 @@ export function Logo({
         </span>
         {showWordmark && (
           <span className="text-base sm:text-lg">
-            ESG<span className="text-primary">ESGsimplify</span>
+            ESG<span className="text-primary">simplify</span>
           </span>
         )}
       </span>
