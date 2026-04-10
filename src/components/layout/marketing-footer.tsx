@@ -9,7 +9,7 @@ const footerLinks = [
     title: "Product",
     items: [
       { label: "How it works", href: "/#how" },
-      { label: "Why ESGsimplified", href: "/#why" },
+      { label: "Why ESGsimplify", href: "/#why" },
       { label: "Upload documents", href: "/upload" },
     ],
   },
@@ -57,7 +57,7 @@ export function MarketingFooter() {
         </div>
         <div className="mt-12 flex flex-col gap-4 border-t border-border/60 pt-8 sm:flex-row sm:items-center sm:justify-between">
           <p className="text-xs text-muted-foreground">
-            © {new Date().getFullYear()} ESGsimplified. All rights reserved.
+            © {new Date().getFullYear()} ESGsimplify. All rights reserved.
           </p>
           <p className="text-xs text-muted-foreground">
             Made for Austria · CSRD-aligned workflows (demo)
