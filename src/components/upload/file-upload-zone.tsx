@@ -32,7 +32,7 @@ let mockId = 0;
 function nextMockFile(): Omit<MockFile, "id" | "status"> {
   const pool = [
     { name: "Nachhaltigkeitsbericht_Entwurf.pdf", size: "2.4 MB" },
-    { name: "Energie_2025_Q1.xlsx", size: "892 KB" },
+    { name: "Energie_2025_Q1-Q2.xlsx", size: "892 KB" },
     { name: "Emissionen_Scope1_2.csv", size: "156 KB" },
     { name: "HR_Policies_de.pdf", size: "1.1 MB" },
     { name: "Lieferanten_Übersicht.xlsx", size: "445 KB" },
