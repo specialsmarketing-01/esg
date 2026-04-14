@@ -122,15 +122,25 @@ export function ProcessingView() {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
+    const progressSteps = [1, 8, 13, 24, 39, 47, 58, 66, 74, 83, 91, 100];
+    let currentIndex = 0;
+
     const id = window.setInterval(() => {
-      setProgress((p) => (p >= 100 ? 100 : Math.min(100, p + 1.05)));
-    }, 100);
+      if (currentIndex >= progressSteps.length) {
+        window.clearInterval(id);
+        return;
+      }
+
+      setProgress(progressSteps[currentIndex]);
+      currentIndex += 1;
+    }, 250);
+
     return () => window.clearInterval(id);
   }, []);
 
   useEffect(() => {
     if (progress < 100) return;
-    const t = window.setTimeout(() => router.push("/dashboard"), 1200);
+    const t = window.setTimeout(() => router.push("/dashboard"), 500);
     return () => window.clearTimeout(t);
   }, [progress, router]);
 
