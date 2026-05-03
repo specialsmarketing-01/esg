@@ -245,7 +245,7 @@ export function FileUploadZone() {
             type="button"
             className="w-full shadow-soft transition-all duration-200 hover:shadow-soft-lg sm:w-auto sm:min-w-[11rem]"
             disabled={files.length === 0}
-            onClick={() => router.push("/processing")}
+            onClick={() => router.push("/validation")}
           >
             Continue to Analysis
           </Button>
