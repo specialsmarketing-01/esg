@@ -245,7 +245,10 @@ export function FileUploadZone() {
             type="button"
             className="w-full shadow-soft transition-all duration-200 hover:shadow-soft-lg sm:w-auto sm:min-w-[11rem]"
             disabled={files.length === 0}
-            onClick={() => router.push("/validation")}
+            onClick={() => {
+              const fileName = files[0]?.name || "Energie_2025_Q1-Q2.xlsx";
+              router.push(`/validation?file=${encodeURIComponent(fileName)}`);
+            }}
           >
             Continue to Analysis
           </Button>
