@@ -74,11 +74,18 @@ export default function ValidationPage() {
     },
   ];
 
+const selectedFileNames = searchParams.get("files")
+  ? decodeURIComponent(searchParams.get("files") || "").split(",")
+  : [];
+
 const selectedFileName = searchParams.get("file") || "";
 
-  const matchedFiles = selectedFileName
-  ? extractedFiles.filter((file) => file.fileName === selectedFileName)
-  : [];
+ const matchedFiles =
+  selectedFileNames.length > 0
+    ? extractedFiles.filter((file) => selectedFileNames.includes(file.fileName))
+    : selectedFileName
+    ? extractedFiles.filter((file) => file.fileName === selectedFileName)
+    : [];
 
 const visibleFiles =
   matchedFiles.length > 0
