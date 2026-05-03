@@ -6,6 +6,18 @@ export default function ValidationPage({
   searchParams: { file?: string };
 }) {
   const extractedFiles = [
+
+       {
+      fileName: "Nachhaltigkeitsbericht_Entwurf.pdf",
+      category: "ESG / Sustainability Report",
+      confidence: "90%",
+      fields: [
+        { label: "Report type", value: "Sustainability report draft" },
+        { label: "Environmental section", value: "Found" },
+        { label: "Social section", value: "Found" },
+        { label: "Governance section", value: "Found" },
+      ],
+    },
     {
       fileName: "HR_Policies_de.pdf",
       category: "Social / HR",
