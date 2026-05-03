@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 
 type ValidationFile = {
   fileName: string;
@@ -10,11 +13,8 @@ type ValidationFile = {
   }[];
 };
 
-export default function ValidationPage({
-  searchParams,
-}: {
-  searchParams: { file?: string };
-}) {
+export default function ValidationPage() {
+  const searchParams = useSearchParams();
 
   const extractedFiles: ValidationFile[] = [
     {
@@ -74,30 +74,28 @@ export default function ValidationPage({
     },
   ];
 
-  const selectedFileName = searchParams.file
-  ? decodeURIComponent(searchParams.file)
-  : "";
+const selectedFileName = searchParams.get("file") || "";
 
   const matchedFiles = selectedFileName
-    ? extractedFiles.filter((file) => file.fileName === selectedFileName)
-    : [];
+  ? extractedFiles.filter((file) => file.fileName === selectedFileName)
+  : [];
 
-  const visibleFiles: ValidationFile[] =
-    matchedFiles.length > 0
-      ? matchedFiles
-      : [
-          {
-            fileName: selectedFileName || "Uploaded document",
-            category: "Detected ESG Document",
-            confidence: "86%",
-            fields: [
-              { label: "Document type", value: "Uploaded file" },
-              { label: "ESG relevance", value: "Detected" },
-              { label: "Extraction status", value: "Ready for validation" },
-              { label: "Manual review", value: "Recommended" },
-            ],
-          },
-        ];
+const visibleFiles =
+  matchedFiles.length > 0
+    ? matchedFiles
+    : [
+        {
+          fileName: selectedFileName || "Uploaded document",
+          category: "Detected ESG Document",
+          confidence: "86%",
+          fields: [
+            { label: "Document type", value: "Uploaded file" },
+            { label: "ESG relevance", value: "Detected" },
+            { label: "Extraction status", value: "Ready for validation" },
+            { label: "Manual review", value: "Recommended" },
+          ],
+        },
+      ];
 
   const totalFields = visibleFiles.reduce(
     (total, file) => total + file.fields.length,
