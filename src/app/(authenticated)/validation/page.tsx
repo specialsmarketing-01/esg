@@ -10,12 +10,11 @@ type ValidationFile = {
   }[];
 };
 
-export default async function ValidationPage({
+export default function ValidationPage({
   searchParams,
 }: {
-  searchParams: Promise<{ file?: string }>;
+  searchParams: { file?: string };
 }) {
-  const params = await searchParams;
 
   const extractedFiles: ValidationFile[] = [
     {
@@ -75,7 +74,9 @@ export default async function ValidationPage({
     },
   ];
 
-  const selectedFileName = params.file ? decodeURIComponent(params.file) : "";
+  const selectedFileName = searchParams.file
+  ? decodeURIComponent(searchParams.file)
+  : "";
 
   const matchedFiles = selectedFileName
     ? extractedFiles.filter((file) => file.fileName === selectedFileName)
