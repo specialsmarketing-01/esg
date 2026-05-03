@@ -1,13 +1,24 @@
 import Link from "next/link";
 
-export default function ValidationPage({
+type ValidationFile = {
+  fileName: string;
+  category: string;
+  confidence: string;
+  fields: {
+    label: string;
+    value: string;
+  }[];
+};
+
+export default async function ValidationPage({
   searchParams,
 }: {
-  searchParams: { file?: string };
+  searchParams: Promise<{ file?: string }>;
 }) {
-  const extractedFiles = [
+  const params = await searchParams;
 
-       {
+  const extractedFiles: ValidationFile[] = [
+    {
       fileName: "Nachhaltigkeitsbericht_Entwurf.pdf",
       category: "ESG / Sustainability Report",
       confidence: "90%",
@@ -16,17 +27,6 @@ export default function ValidationPage({
         { label: "Environmental section", value: "Found" },
         { label: "Social section", value: "Found" },
         { label: "Governance section", value: "Found" },
-      ],
-    },
-    {
-      fileName: "HR_Policies_de.pdf",
-      category: "Social / HR",
-      confidence: "87%",
-      fields: [
-        { label: "Employee training policy", value: "Found" },
-        { label: "Health & safety policy", value: "Found" },
-        { label: "Diversity policy", value: "Found" },
-        { label: "Employee handbook language", value: "German" },
       ],
     },
     {
@@ -41,38 +41,47 @@ export default function ValidationPage({
       ],
     },
     {
-      fileName: "Supplier_Code_of_Conduct.pdf",
-      category: "Governance / Supply Chain",
-      confidence: "84%",
+      fileName: "Emissionen_Scope1_2.csv",
+      category: "Environmental / Emissions",
+      confidence: "91%",
       fields: [
-        { label: "Supplier ethics policy", value: "Found" },
-        { label: "Labor standards", value: "Found" },
-        { label: "Anti-corruption clause", value: "Found" },
-        { label: "Supplier review process", value: "Partially found" },
+        { label: "Scope 1 emissions", value: "18.6 tCO₂e" },
+        { label: "Scope 2 emissions", value: "42.1 tCO₂e" },
+        { label: "Reporting year", value: "2025" },
+        { label: "Emission unit", value: "tCO₂e" },
       ],
     },
     {
-      fileName: "Waste_Report_2025.pdf",
-      category: "Environmental / Waste",
-      confidence: "89%",
+      fileName: "HR_Policies_de.pdf",
+      category: "Social / HR",
+      confidence: "87%",
       fields: [
-        { label: "Total waste volume", value: "12.4 tons" },
-        { label: "Recycling rate", value: "64%" },
-        { label: "Hazardous waste", value: "Not detected" },
-        { label: "Reporting year", value: "2025" },
+        { label: "Employee training policy", value: "Found" },
+        { label: "Health & safety policy", value: "Found" },
+        { label: "Diversity policy", value: "Found" },
+        { label: "Employee handbook language", value: "German" },
+      ],
+    },
+    {
+      fileName: "Lieferanten_Übersicht.xlsx",
+      category: "Governance / Supply Chain",
+      confidence: "84%",
+      fields: [
+        { label: "Supplier list", value: "Found" },
+        { label: "Supplier country data", value: "Found" },
+        { label: "Risk classification", value: "Partially found" },
+        { label: "Review status", value: "Needs validation" },
       ],
     },
   ];
 
-  const selectedFileName = searchParams.file
-    ? decodeURIComponent(searchParams.file)
-    : "";
+  const selectedFileName = params.file ? decodeURIComponent(params.file) : "";
 
   const matchedFiles = selectedFileName
     ? extractedFiles.filter((file) => file.fileName === selectedFileName)
-    : extractedFiles;
+    : [];
 
-  const visibleFiles =
+  const visibleFiles: ValidationFile[] =
     matchedFiles.length > 0
       ? matchedFiles
       : [
@@ -140,12 +149,14 @@ export default function ValidationPage({
                 </div>
                 <div className="text-xs text-muted-foreground">Files</div>
               </div>
+
               <div className="rounded-2xl border bg-card px-4 py-3 text-center shadow-sm">
                 <div className="text-2xl font-bold text-foreground">
                   {totalFields}
                 </div>
                 <div className="text-xs text-muted-foreground">Fields</div>
               </div>
+
               <div className="rounded-2xl border bg-card px-4 py-3 text-center shadow-sm col-span-2 sm:col-span-1">
                 <div className="text-2xl font-bold text-foreground">
                   {visibleFiles[0].confidence}
