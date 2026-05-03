@@ -246,8 +246,8 @@ export function FileUploadZone() {
             className="w-full shadow-soft transition-all duration-200 hover:shadow-soft-lg sm:w-auto sm:min-w-[11rem]"
             disabled={files.length === 0}
             onClick={() => {
-              const fileName = files[0]?.name || "Uploaded document";
-              router.push(`/validation?file=${encodeURIComponent(fileName)}`);
+              const fileNames = files.map((file) => file.name).join(",");
+              router.push(`/validation?files=${encodeURIComponent(fileNames)}`);
             }}
           >
             Continue to Analysis
