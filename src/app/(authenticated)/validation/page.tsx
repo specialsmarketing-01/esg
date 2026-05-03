@@ -1,6 +1,10 @@
 import Link from "next/link";
 
-export default function ValidationPage() {
+export default function ValidationPage({
+  searchParams,
+}: {
+  searchParams: { file?: string };
+}) {
   const extractedFiles = [
     {
       fileName: "HR_Policies_de.pdf",
@@ -48,6 +52,36 @@ export default function ValidationPage() {
     },
   ];
 
+  const selectedFileName = searchParams.file
+    ? decodeURIComponent(searchParams.file)
+    : "";
+
+  const matchedFiles = selectedFileName
+    ? extractedFiles.filter((file) => file.fileName === selectedFileName)
+    : extractedFiles;
+
+  const visibleFiles =
+    matchedFiles.length > 0
+      ? matchedFiles
+      : [
+          {
+            fileName: selectedFileName || "Uploaded document",
+            category: "Detected ESG Document",
+            confidence: "86%",
+            fields: [
+              { label: "Document type", value: "Uploaded file" },
+              { label: "ESG relevance", value: "Detected" },
+              { label: "Extraction status", value: "Ready for validation" },
+              { label: "Manual review", value: "Recommended" },
+            ],
+          },
+        ];
+
+  const totalFields = visibleFiles.reduce(
+    (total, file) => total + file.fields.length,
+    0
+  );
+
   return (
     <main className="min-h-screen bg-gradient-to-b from-background via-background to-secondary/20">
       <header className="sticky top-0 z-20 border-b bg-background/80 backdrop-blur">
@@ -81,7 +115,7 @@ export default function ValidationPage() {
               </h1>
 
               <p className="max-w-2xl text-sm leading-6 text-muted-foreground md:text-base">
-                Please review the data extracted from your uploaded documents.
+                Please review the data extracted from your uploaded document.
                 Confirm that the values are correct before continuing to AI
                 analysis.
               </p>
@@ -89,23 +123,29 @@ export default function ValidationPage() {
 
             <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
               <div className="rounded-2xl border bg-card px-4 py-3 text-center shadow-sm">
-                <div className="text-2xl font-bold text-foreground">4</div>
+                <div className="text-2xl font-bold text-foreground">
+                  {visibleFiles.length}
+                </div>
                 <div className="text-xs text-muted-foreground">Files</div>
               </div>
               <div className="rounded-2xl border bg-card px-4 py-3 text-center shadow-sm">
-                <div className="text-2xl font-bold text-foreground">16</div>
+                <div className="text-2xl font-bold text-foreground">
+                  {totalFields}
+                </div>
                 <div className="text-xs text-muted-foreground">Fields</div>
               </div>
               <div className="rounded-2xl border bg-card px-4 py-3 text-center shadow-sm col-span-2 sm:col-span-1">
-                <div className="text-2xl font-bold text-foreground">88%</div>
-                <div className="text-xs text-muted-foreground">Avg. Confidence</div>
+                <div className="text-2xl font-bold text-foreground">
+                  {visibleFiles[0].confidence}
+                </div>
+                <div className="text-xs text-muted-foreground">Confidence</div>
               </div>
             </div>
           </div>
         </section>
 
         <section className="grid gap-6 xl:grid-cols-2">
-          {extractedFiles.map((file, index) => (
+          {visibleFiles.map((file, index) => (
             <article
               key={file.fileName}
               className="group rounded-3xl border border-border/60 bg-card p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
