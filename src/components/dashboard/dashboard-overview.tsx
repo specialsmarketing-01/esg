@@ -207,41 +207,73 @@ export function DashboardOverview() {
         </div>
       </div>
 
-      <div className="grid gap-4 lg:grid-cols-12 lg:gap-6">
+           <div className="grid gap-4 lg:grid-cols-12 lg:gap-6">
         <ContentCard
           elevation="lg"
-          className="border-primary/10 bg-gradient-to-b from-card via-card to-secondary/20 shadow-premium lg:col-span-5 xl:col-span-4"
+          className="border-primary/10 bg-gradient-to-b from-card via-card to-secondary/20 shadow-premium lg:col-span-8"
         >
-          <CardHeader className="pb-2 text-center sm:text-left">
-            <CardTitle className={design.type.cardTitle}>Overall performance</CardTitle>
+          <CardHeader className="pb-2">
+            <CardTitle className={design.type.cardTitle}>Validated ESG insights</CardTitle>
             <CardDescription>
-              Composite score from environmental, social, and governance signals.
+              Instead of a simplified score, the dashboard highlights extracted and validated ESG information.
             </CardDescription>
           </CardHeader>
-          <CardContent className="flex justify-center pb-8 pt-2">
-            <EsgScoreRing value={mockEsgScores.overall} />
+          <CardContent className="grid gap-4 pt-2 sm:grid-cols-2">
+            <div className="rounded-2xl border border-border/60 bg-background/70 p-4">
+              <p className="text-sm font-semibold text-foreground">Environmental data</p>
+              <p className="mt-1 text-sm text-muted-foreground">
+                Energy consumption and emissions data were identified from uploaded files.
+              </p>
+            </div>
+      
+            <div className="rounded-2xl border border-border/60 bg-background/70 p-4">
+              <p className="text-sm font-semibold text-foreground">Social policies</p>
+              <p className="mt-1 text-sm text-muted-foreground">
+                HR and employee-related policies were detected for review.
+              </p>
+            </div>
+      
+            <div className="rounded-2xl border border-border/60 bg-background/70 p-4">
+              <p className="text-sm font-semibold text-foreground">Governance documents</p>
+              <p className="mt-1 text-sm text-muted-foreground">
+                Supplier and compliance documents are available for report preparation.
+              </p>
+            </div>
+      
+            <div className="rounded-2xl border border-border/60 bg-background/70 p-4">
+              <p className="text-sm font-semibold text-foreground">User validation</p>
+              <p className="mt-1 text-sm text-muted-foreground">
+                Extracted data is reviewed by the user before AI analysis continues.
+              </p>
+            </div>
           </CardContent>
         </ContentCard>
-        <div className="grid gap-4 sm:grid-cols-3 lg:col-span-7 xl:col-span-8">
-          <PillarScoreCard
-            title="Environmental Score"
-            value={mockEsgScores.environmental}
-            icon={Leaf}
-            hint="Energy, emissions, and resource use (mock)"
-          />
-          <PillarScoreCard
-            title="Social Score"
-            value={mockEsgScores.social}
-            icon={Users}
-            hint="Workforce, safety, and community (mock)"
-          />
-          <PillarScoreCard
-            title="Governance Score"
-            value={mockEsgScores.governance}
-            icon={Shield}
-            hint="Policies, oversight, and ethics (mock)"
-          />
-        </div>
+      
+        <ContentCard
+          elevation="lg"
+          className="border-primary/20 bg-gradient-to-br from-primary/[0.06] via-card to-secondary/30 lg:col-span-4"
+        >
+          <CardHeader className="pb-2">
+            <CardTitle className={design.type.cardTitle}>Data readiness</CardTitle>
+            <CardDescription>
+              The focus is on transparent, validated inputs.
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            <div className="rounded-xl bg-primary/10 px-4 py-3 text-sm font-medium text-primary">
+              Documents uploaded
+            </div>
+            <div className="rounded-xl bg-primary/10 px-4 py-3 text-sm font-medium text-primary">
+              ESG fields extracted
+            </div>
+            <div className="rounded-xl bg-primary/10 px-4 py-3 text-sm font-medium text-primary">
+              Data validated by user
+            </div>
+            <div className="rounded-xl bg-primary/10 px-4 py-3 text-sm font-medium text-primary">
+              Ready for report preparation
+            </div>
+          </CardContent>
+        </ContentCard>
       </div>
 
       <div className="grid gap-4 lg:grid-cols-12 lg:gap-6">
