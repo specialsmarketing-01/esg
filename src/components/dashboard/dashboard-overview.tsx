@@ -108,6 +108,39 @@ function PillarScoreCard({
   );
 }
 
+const vsmeKpiGroups = [
+  {
+    title: "Environmental",
+    icon: Leaf,
+    items: [
+      "Energy consumption",
+      "CO₂ emissions",
+      "Waste & recycling",
+      "Renewable energy share",
+    ],
+  },
+  {
+    title: "Social",
+    icon: Users,
+    items: [
+      "Employee policies",
+      "Health & safety",
+      "Training records",
+      "Diversity indicators",
+    ],
+  },
+  {
+    title: "Governance",
+    icon: Shield,
+    items: [
+      "Supplier code of conduct",
+      "Anti-corruption policy",
+      "Compliance process",
+      "ESG responsibility",
+    ],
+  },
+] satisfies { title: string; icon: LucideIcon; items: string[] }[];
+
 function MockBarChart({
   title,
   description,
@@ -275,6 +308,52 @@ export function DashboardOverview() {
           </CardContent>
         </ContentCard>
       </div>
+
+      <ContentCard
+        elevation="lg"
+        className="border-primary/10 bg-gradient-to-br from-card via-card to-primary/[0.04]"
+      >
+        <CardHeader className="pb-3">
+          <CardTitle className={design.type.cardTitle}>VSME KPI Coverage</CardTitle>
+          <CardDescription>
+            Main ESG categories currently detected and structured from uploaded documents.
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="grid gap-4 md:grid-cols-3">
+          {vsmeKpiGroups.map((group) => {
+            const Icon = group.icon;
+
+            return (
+              <div
+                key={group.title}
+                className="rounded-2xl border border-border/60 bg-background/75 p-4 shadow-sm transition-[border-color,box-shadow] duration-200 hover:border-primary/20 hover:shadow-soft"
+              >
+                <div className="mb-4 flex items-center gap-3">
+                  <span className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                    <Icon className="size-4" strokeWidth={1.75} aria-hidden />
+                  </span>
+                  <h3 className="text-sm font-semibold text-foreground">{group.title}</h3>
+                </div>
+                <ul className="space-y-2.5">
+                  {group.items.map((item) => (
+                    <li
+                      key={item}
+                      className="flex items-start gap-2.5 text-sm text-muted-foreground"
+                    >
+                      <CheckCircle2
+                        className="mt-0.5 size-4 shrink-0 text-primary"
+                        strokeWidth={1.75}
+                        aria-hidden
+                      />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            );
+          })}
+        </CardContent>
+      </ContentCard>
 
       <div className="grid gap-4 lg:grid-cols-12 lg:gap-6">
         <div className="flex flex-col gap-4 lg:col-span-8">
