@@ -398,9 +398,9 @@ export function DashboardOverview() {
         className="border-primary/10 bg-gradient-to-br from-card via-card to-primary/[0.04]"
       >
         <CardHeader className="pb-3">
-          <CardTitle className={design.type.cardTitle}>VSME KPI Coverage</CardTitle>
+          <CardTitle className={design.type.cardTitle}>VSME KPI Categories</CardTitle>
           <CardDescription>
-            Main ESG categories currently detected and structured from uploaded documents.
+            Main ESG categories currently identified from uploaded company documents.
           </CardDescription>
         </CardHeader>
         <CardContent className="grid gap-4 md:grid-cols-3">
