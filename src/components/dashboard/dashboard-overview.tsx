@@ -1,6 +1,19 @@
+"use client";
+
 import type { LucideIcon } from "lucide-react";
 import Link from "next/link";
-import { CheckCircle2, Download, Leaf, Shield, Upload, Users } from "lucide-react";
+import { useState, type FormEvent } from "react";
+import {
+  CheckCircle2,
+  Download,
+  Leaf,
+  MessageCircle,
+  Send,
+  Shield,
+  Upload,
+  Users,
+  X,
+} from "lucide-react";
 
 import { ContentCard } from "@/components/primitives/content-card";
 import { PageTitle, Subtitle } from "@/components/primitives/typography";
@@ -13,6 +26,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
 import {
   mockCarbonEmissions,
   mockComplianceStatus,
@@ -27,6 +41,12 @@ import { cn } from "@/lib/utils";
 
 const R = 54;
 const CIRC = 2 * Math.PI * R;
+
+type AssistantMessage = {
+  id: string;
+  role: "user" | "assistant";
+  content: string;
+};
 
 function EsgScoreRing({ value }: { value: number }) {
   const offset = CIRC - (value / 100) * CIRC;
@@ -141,6 +161,27 @@ const vsmeKpiGroups = [
   },
 ] satisfies { title: string; icon: LucideIcon; items: string[] }[];
 
+const assistantQuickQuestions = [
+  "Which files should I upload?",
+  "What is the validation step?",
+  "What are VSME KPIs?",
+  "How does ESGsimplify help?",
+] as const;
+
+const assistantDemoAnswers = {
+  "Which files should I upload?":
+    "You can upload existing company documents such as sustainability reports, energy data, HR policies, supplier documents, waste reports, and Excel/CSV files.",
+  "What is the validation step?":
+    "The validation step lets users review the data extracted from uploaded documents before AI analysis continues. This improves trust and reduces mistakes.",
+  "What are VSME KPIs?":
+    "VSME KPIs are the main sustainability indicators SMEs may need to report, grouped into Environmental, Social, and Governance categories.",
+  "How does ESGsimplify help?":
+    "ESGsimplify helps SMEs turn scattered company documents into structured ESG data, validation views, and report-ready insights.",
+} satisfies Record<(typeof assistantQuickQuestions)[number], string>;
+
+const assistantFallbackAnswer =
+  "This demo assistant can currently answer basic questions about document uploads, validation, VSME KPIs, and ESG reporting. In a real product, this would connect to an AI model trained on the company’s uploaded documents and ESG guidance.";
+
 function MockBarChart({
   title,
   description,
@@ -209,6 +250,49 @@ function activityIcon(kind: ActivityItem["kind"]) {
 }
 
 export function DashboardOverview() {
+  const [isAssistantOpen, setIsAssistantOpen] = useState(false);
+  const [assistantInput, setAssistantInput] = useState("");
+  const [assistantMessages, setAssistantMessages] = useState<AssistantMessage[]>([
+    {
+      id: "assistant-intro",
+      role: "assistant",
+      content:
+        "Hi, I can help with demo questions about uploads, validation, KPIs, and ESG reports.",
+    },
+  ]);
+
+  function addAssistantExchange(question: string, answer: string) {
+    setAssistantMessages((messages) => [
+      ...messages,
+      {
+        id: `${messages.length}-user-${question}`,
+        role: "user",
+        content: question,
+      },
+      {
+        id: `${messages.length}-assistant-${question}`,
+        role: "assistant",
+        content: answer,
+      },
+    ]);
+  }
+
+  function handleQuickQuestion(question: (typeof assistantQuickQuestions)[number]) {
+    addAssistantExchange(question, assistantDemoAnswers[question]);
+  }
+
+  function handleAssistantSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    const question = assistantInput.trim();
+    if (!question) {
+      return;
+    }
+
+    addAssistantExchange(question, assistantFallbackAnswer);
+    setAssistantInput("");
+  }
+
   return (
     <div className={cn(design.page.marketingWide, "space-y-8 sm:space-y-10")}>
       <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between sm:gap-6">
@@ -463,6 +547,94 @@ export function DashboardOverview() {
           </ul>
         </CardContent>
       </ContentCard>
+
+      <div className="fixed bottom-4 right-4 z-50 flex flex-col items-end gap-3 sm:bottom-6 sm:right-6">
+        {isAssistantOpen ? (
+          <ContentCard
+            elevation="lg"
+            className="w-[calc(100vw-2rem)] max-w-sm border-primary/15 bg-background/95 shadow-premium backdrop-blur"
+          >
+            <CardHeader className="pb-3">
+              <div className="flex items-start justify-between gap-3">
+                <div>
+                  <CardTitle className={design.type.cardTitle}>
+                    ESGsimplify Assistant
+                  </CardTitle>
+                  <CardDescription>
+                    Ask questions about uploads, validation, KPIs, and reports.
+                  </CardDescription>
+                </div>
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="icon-sm"
+                  aria-label="Close ESG Assistant"
+                  onClick={() => setIsAssistantOpen(false)}
+                  className="shrink-0 text-muted-foreground hover:text-foreground"
+                >
+                  <X className="size-4" aria-hidden />
+                </Button>
+              </div>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="max-h-64 space-y-3 overflow-y-auto rounded-2xl border border-border/60 bg-muted/25 p-3">
+                {assistantMessages.map((message) => (
+                  <div
+                    key={message.id}
+                    className={cn(
+                      "max-w-[92%] rounded-2xl px-3 py-2 text-sm leading-relaxed",
+                      message.role === "user"
+                        ? "ml-auto bg-primary text-primary-foreground"
+                        : "bg-background text-muted-foreground shadow-sm"
+                    )}
+                  >
+                    {message.content}
+                  </div>
+                ))}
+              </div>
+
+              <div className="grid gap-2 sm:grid-cols-2">
+                {assistantQuickQuestions.map((question) => (
+                  <Button
+                    key={question}
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    onClick={() => handleQuickQuestion(question)}
+                    className="h-auto justify-start whitespace-normal rounded-xl px-3 py-2 text-left text-xs leading-snug"
+                  >
+                    {question}
+                  </Button>
+                ))}
+              </div>
+
+              <form onSubmit={handleAssistantSubmit} className="flex gap-2">
+                <Input
+                  value={assistantInput}
+                  onChange={(event) => setAssistantInput(event.target.value)}
+                  placeholder="Ask about ESGsimplify..."
+                  aria-label="Ask the ESGsimplify Assistant"
+                  className="bg-background"
+                />
+                <Button type="submit" size="icon" aria-label="Send message">
+                  <Send className="size-4" aria-hidden />
+                </Button>
+              </form>
+            </CardContent>
+          </ContentCard>
+        ) : null}
+
+        <Button
+          type="button"
+          size="lg"
+          onClick={() => setIsAssistantOpen((open) => !open)}
+          aria-expanded={isAssistantOpen}
+          className="shadow-premium"
+        >
+          <MessageCircle className="size-4" aria-hidden />
+          ESG Assistant
+        </Button>
+      </div>
     </div>
   );
 }
