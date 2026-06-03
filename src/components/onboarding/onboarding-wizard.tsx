@@ -219,12 +219,12 @@ export function OnboardingWizard() {
                       <SelectValue placeholder="Select industry" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="manufacturing">Manufacturing</SelectItem>
-                      <SelectItem value="retail">Retail & wholesale</SelectItem>
-                      <SelectItem value="services">Professional services</SelectItem>
-                      <SelectItem value="tech">Technology</SelectItem>
-                      <SelectItem value="hospitality">Hospitality & tourism</SelectItem>
-                      <SelectItem value="other">Other</SelectItem>
+                      <SelectItem value="Manufacturing">Manufacturing</SelectItem>
+                      <SelectItem value="Retail & wholesale">Retail & wholesale</SelectItem>
+                      <SelectItem value="Professional services">Professional services</SelectItem>
+                      <SelectItem value="Technology">Technology</SelectItem>
+                      <SelectItem value="Hospitality & tourism">Hospitality & tourism</SelectItem>
+                      <SelectItem value="Other">Other</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
