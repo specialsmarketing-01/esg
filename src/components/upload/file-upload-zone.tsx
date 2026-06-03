@@ -250,7 +250,7 @@ export function FileUploadZone() {
               router.push(`/validation?files=${encodeURIComponent(fileNames)}`);
             }}
           >
-            Continue to Analysis
+            Continue to Validation 
           </Button>
         </CardFooter>
       </ContentCard>
