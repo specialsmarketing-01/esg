@@ -37,12 +37,12 @@ const STEPS = [
 ] as const;
 
 const industryLabels: Record<string, string> = {
-  manufacturing: "Manufacturing",
-  retail: "Retail & wholesale",
-  services: "Professional services",
-  tech: "Technology",
-  hospitality: "Hospitality & tourism",
-  other: "Other",
+ Manufacturing: "Manufacturing",
+  Retail & wholesale: "Retail & wholesale",
+  Professional services: "Professional services",
+  Technology: "Technology",
+  Hospitality & tourism: "Hospitality & tourism",
+  Other: "Other",
 };
 
 const employeeLabels: Record<string, string> = {
