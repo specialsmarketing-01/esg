@@ -1,16 +1,15 @@
-import Link from "next/link";
+import { DashboardShell } from "@/components/dashboard/dashboard-shell";
+
 export default function ReportsPage() {
   const demoReports = [
     {
-
-      
       id: 1,
       company: "GreenVolt Energy GmbH",
       industry: "Green Energy",
       size: "Medium Enterprise",
       title: "Annual ESG Performance Report",
       period: "2025",
-      score: 91,
+      dataStatus: "Validated",
       status: "Ready",
       summary:
         "Strong renewable transition progress with measurable emissions reduction and governance maturity.",
@@ -22,7 +21,7 @@ export default function ReportsPage() {
       size: "Large Enterprise",
       title: "Supply Chain Sustainability Review",
       period: "Q1 2026",
-      score: 83,
+      dataStatus: "Validated",
       status: "Ready",
       summary:
         "Supplier screening, transport efficiency, and compliance controls improved across regional operations.",
@@ -34,7 +33,7 @@ export default function ReportsPage() {
       size: "Small Business",
       title: "Food Operations ESG Snapshot",
       period: "Q1 2026",
-      score: 76,
+      dataStatus: "Needs validation",
       status: "Draft",
       summary:
         "Waste reduction and sourcing practices are improving, with additional work needed on reporting consistency.",
@@ -46,7 +45,7 @@ export default function ReportsPage() {
       size: "Medium Enterprise",
       title: "Electrical Manufacturing Compliance Report",
       period: "Q1 2026",
-      score: 88,
+      dataStatus: "In validation",
       status: "In Review",
       summary:
         "Operational safety, supplier governance, and product lifecycle controls are performing above benchmark.",
@@ -58,7 +57,7 @@ export default function ReportsPage() {
       size: "Large Enterprise",
       title: "Retail ESG Governance Overview",
       period: "2025",
-      score: 80,
+      dataStatus: "Validated",
       status: "Ready",
       summary:
         "Solid governance framework and employee initiatives, with opportunities in energy optimization.",
@@ -78,34 +77,10 @@ export default function ReportsPage() {
     }
   };
 
-  const getScoreStyles = (score: number) => {
-    if (score >= 85) return "text-emerald-600";
-    if (score >= 75) return "text-amber-600";
-    return "text-rose-600";
-  };
-
   return (
-    <main className="min-h-screen bg-gradient-to-b from-background via-background to-secondary/20">
-      <header className="sticky top-0 z-20 border-b bg-background/80 backdrop-blur">
-  <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-    <div className="flex items-center gap-2">
-      <img src="/logo.png" alt="logo" className="h-8 w-8 rounded-md" />
-      <span className="text-lg font-semibold tracking-tight">
-        ESG<span className="text-primary">simplify</span>
-      </span>
-    </div>
-
-    <Link
-      href="/dashboard"
-      className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow-sm transition-all hover:opacity-90"
-    >
-      ESGsimplify Dashboard
-    </Link>
-  </div>
-</header>
-      <div className="mx-auto w-full max-w-7xl space-y-8 px-6 py-8 md:px-8 lg:px-10">
-        {/* Page Header */}
-        <section className="rounded-3xl border border-border/60 bg-background/80 p-6 shadow-sm backdrop-blur md:p-8">
+    <DashboardShell>
+      <div className="mx-auto w-full max-w-7xl space-y-8">
+        <section className="rounded-3xl border border-border/60 bg-background/85 p-6 shadow-sm backdrop-blur md:p-8">
           <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
             <div className="space-y-3">
               <div className="inline-flex items-center rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
@@ -130,7 +105,7 @@ export default function ReportsPage() {
                 <div className="text-2xl font-bold text-foreground">4</div>
                 <div className="text-xs text-muted-foreground">Industries</div>
               </div>
-              <div className="rounded-2xl border bg-card px-4 py-3 text-center shadow-sm col-span-2 sm:col-span-1">
+              <div className="col-span-2 rounded-2xl border bg-card px-4 py-3 text-center shadow-sm sm:col-span-1">
                 <div className="text-2xl font-bold text-foreground">2026</div>
                 <div className="text-xs text-muted-foreground">Demo Cycle</div>
               </div>
@@ -138,7 +113,6 @@ export default function ReportsPage() {
           </div>
         </section>
 
-        {/* Reports Grid */}
         <section className="grid gap-6 xl:grid-cols-2">
           {demoReports.map((report, index) => (
             <article
@@ -196,14 +170,10 @@ export default function ReportsPage() {
 
                   <div>
                     <p className="text-xs uppercase tracking-wide text-muted-foreground">
-                      ESG Score
+                      Validation Status
                     </p>
-                    <p
-                      className={`mt-1 text-2xl font-bold ${getScoreStyles(
-                        report.score
-                      )}`}
-                    >
-                      {report.score}
+                    <p className="mt-1 font-semibold text-foreground">
+                      {report.dataStatus}
                     </p>
                   </div>
 
@@ -230,15 +200,14 @@ export default function ReportsPage() {
           ))}
         </section>
 
-        {/* Footer Section */}
-        <section className="rounded-3xl border border-dashed border-border/80 bg-background/70 px-6 py-5 text-center shadow-sm">
+        <section className="rounded-3xl border border-dashed border-border/70 bg-background/70 px-6 py-5 text-center shadow-sm">
           <p className="text-sm text-muted-foreground">
-            Demo reporting workspace for ESGsimplify — sample content for
-            showcasing report layouts, ESG scoring, and industry-specific
+            Demo reporting workspace for ESGsimplify - sample content for
+            showcasing report layouts, validation status, and industry-specific
             reporting views.
           </p>
         </section>
       </div>
-    </main>
+    </DashboardShell>
   );
 }

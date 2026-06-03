@@ -13,11 +13,17 @@ export type SidebarNavItem = {
   href: string;
   label: string;
   icon: LucideIcon;
+  activeHrefs?: readonly string[];
 };
 
 export const dashboardSidebarItems: readonly SidebarNavItem[] = [
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
-  { href: "/upload", label: "Documents", icon: FolderOpen },
+  {
+    href: "/documents",
+    label: "Documents",
+    icon: FolderOpen,
+    activeHrefs: ["/documents", "/upload"],
+  },
   { href: "/reports", label: "Reports", icon: FileText },
   { href: "/settings", label: "Settings", icon: Settings },
 ];
@@ -51,10 +57,11 @@ export function SidebarNav({
 
   return (
     <nav className={cn("flex flex-col gap-1", className)} aria-label={ariaLabel}>
-      {items.map(({ href, label, icon: Icon }) => {
-        const active =
-          href !== "#" &&
-          (pathname === href || pathname.startsWith(`${href}/`));
+      {items.map(({ href, label, icon: Icon, activeHrefs }) => {
+        const paths = activeHrefs ?? [href];
+        const active = paths.some(
+          (path) => path !== "#" && (pathname === path || pathname.startsWith(`${path}/`))
+        );
         return (
           <Link
             key={label}

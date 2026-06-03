@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { DashboardShell } from "@/components/dashboard/dashboard-shell";
 
 export default function SettingsPage() {
   const settingsGroups = [
@@ -28,7 +28,7 @@ export default function SettingsPage() {
       items: [
         { label: "Reporting Standard", value: "ESRS / SME Demo Mode" },
         { label: "Default Report Format", value: "PDF + Dashboard View" },
-        { label: "Scoring Model", value: "Composite ESG Score" },
+        { label: "KPI Review Model", value: "Validated KPI Coverage" },
         { label: "Review Workflow", value: "Internal Review First" },
       ],
     },
@@ -45,26 +45,8 @@ export default function SettingsPage() {
   ];
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-background via-background to-secondary/20">
-      <header className="sticky top-0 z-20 border-b bg-background/80 backdrop-blur">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-          <div className="flex items-center gap-2">
-            <img src="/logo.png" alt="logo" className="h-8 w-8 rounded-md" />
-            <span className="text-lg font-semibold tracking-tight">
-              ESG<span className="text-primary">simplify</span>
-            </span>
-          </div>
-
-          <Link
-            href="/dashboard"
-            className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow-sm transition-all hover:opacity-90"
-          >
-            ESGsimplify Dashboard
-          </Link>
-        </div>
-      </header>
-
-      <div className="mx-auto w-full max-w-7xl space-y-8 px-6 py-8 md:px-8 lg:px-10">
+    <DashboardShell>
+      <div className="mx-auto w-full max-w-7xl space-y-8">
         <section className="rounded-3xl border border-border/60 bg-background/80 p-6 shadow-sm backdrop-blur md:p-8">
           <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
             <div className="space-y-3">
@@ -90,7 +72,7 @@ export default function SettingsPage() {
                 <div className="text-2xl font-bold text-foreground">16</div>
                 <div className="text-xs text-muted-foreground">Settings</div>
               </div>
-              <div className="rounded-2xl border bg-card px-4 py-3 text-center shadow-sm col-span-2 sm:col-span-1">
+              <div className="col-span-2 rounded-2xl border bg-card px-4 py-3 text-center shadow-sm sm:col-span-1">
                 <div className="text-2xl font-bold text-foreground">2026</div>
                 <div className="text-xs text-muted-foreground">Demo Mode</div>
               </div>
@@ -146,12 +128,12 @@ export default function SettingsPage() {
 
         <section className="rounded-3xl border border-dashed border-border/80 bg-background/70 px-6 py-5 text-center shadow-sm">
           <p className="text-sm text-muted-foreground">
-            Demo settings workspace for ESGsimplify — sample content for account
+            Demo settings workspace for ESGsimplify - sample content for account
             preferences, workspace setup, reporting defaults, and security
             controls.
           </p>
         </section>
       </div>
-    </main>
+    </DashboardShell>
   );
 }
